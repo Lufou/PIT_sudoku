@@ -85,14 +85,6 @@ class SudokuGrid:
             self.grid[i][j] = v
 
     def copy(self):
-        """À COMPLÉTER!
-        Cette méthode renvoie une nouvelle instance de la classe SudokuGrid,
-        qui doit être une copie **indépendante** de la grille de Sudoku.
-        *Variante avancée: vous pouvez utiliser ``self.__new__(self.__class__)``
-        pour court-circuiter l'appel à ``__init__`` et manuellement initialiser les attributs de la copie.*
-        :return: Une copie de la grille courrante
-        :rtype: SudokuGrid
-        """
         new_instance = self.__new__(self.__class__)
         for i in range(self.grid.__len__):
             for j in range(self.grid[0].__len__):
