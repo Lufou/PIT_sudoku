@@ -51,16 +51,13 @@ class SudokuGrid:
         return res
 
     def get_region(self, reg_row, reg_col):
-        """À COMPLÉTER!
-        Cette méthode extrait les valeurs présentes dans une région donnée de la grille de Sudoku.
-        *Variante avancée: Renvoyez un générateur sur les valeurs au lieu d'une liste*
-        :param reg_row: Position verticale de la région à extraire, **entre 0 et 2**
-        :param reg_col: Position horizontale de la région à extraire, **entre 0 et 2**
-        :type reg_row: int
-        :type reg_col: int
-        :return: La liste des valeurs présentes à la colonne donnée
-        :rtype: list of int
-        """
+        res = []
+        print(self.grid)
+        for i in range(reg_row*3,reg_row*3+3):
+            for j in range(reg_col*3,reg_col*3+3): 
+                res.append(self.grid[i][j])
+                print(self.grid[i][j])
+        return res
         
 
     def get_empty_positions(self):
