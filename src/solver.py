@@ -1,11 +1,14 @@
 #-*-coding: utf8-*-
 
 class SudokuSolver:
-    """Cette classe permet d'explorer les solutions d'une grille de Sudoku pour la résoudre.
-    Elle fait intervenir des notions de programmation par contraintes
-    que vous n'avez pas à maîtriser pour ce projet."""
+    
+    grid = [[0] * 9 for i in range(9)]
 
     def __init__(self, grid):
+        self.grid = grid
+        print(self.grid)
+        #self.reduce_all_domains()
+        
         """À COMPLÉTER
         Ce constructeur initialise une nouvelle instance de solver à partir d'une grille initiale.
         Il construit les ensembles de valeurs possibles pour chaque case vide de la grille,
@@ -14,7 +17,7 @@ class SudokuSolver:
         :param grid: Une grille de Sudoku
         :type grid: SudokuGrid
         """
-        raise NotImplementedError()
+        #raise NotImplementedError()
 
     def reduce_all_domains(self):
         """À COMPLÉTER
@@ -22,6 +25,8 @@ class SudokuSolver:
         et élimine toutes les valeurs impossibles pour chaque case vide.
         *Indication: Vous pouvez utiliser les fonction ``get_row``, ``get_col`` et ``get_region`` de la grille*
         """
+
+
         raise NotImplementedError()
 
     def reduce_domains(self, last_i, last_j, last_v):
@@ -47,6 +52,15 @@ class SudokuSolver:
         ou ``None`` si aucune case n'a pu être remplie.
         :rtype: tuple of int or None
         """
+        empty = []
+        empty.extend(self.grid.get_empty_positions(self)) #récupère les positions des cases vides et les stocke dans la liste "empty"
+        row = []
+        col = []
+        reg = []
+        for k in range(len(empty)): #parcours la liste "empty"
+            row.extend(self.grid.get_row(empty[k][1]))#récupère les lignes de chaque case vide
+            col.extend(self.grid.get_col(empty[k][0]))#récupère les colonnes de chaque case vide
+            reg.extend(self.grid.get_region(empty[k][0]//3,empty[k][1]//3))#récupère la région de chaque case vide(détermine dans quel tiers du sudoku se trouve la case grâce à le quotient de la division euclidienne de 3 => 0,1 ou2)
         raise NotImplementedError()
 
     def solve_step(self):
@@ -59,6 +73,8 @@ class SudokuSolver:
         il est aussi possible de vérifier s'il ne reste plus qu'une seule position valide pour une certaine valeur
         sur chaque ligne, chaque colonne et dans chaque région*
         """
+        
+
         raise NotImplementedError()
 
     def is_valid(self):
@@ -71,13 +87,11 @@ class SudokuSolver:
         raise NotImplementedError()
 
     def is_solved(self):
-        """À COMPLÉTER
-        Cette méthode vérifie si la solution actuelle est complète,
-        c'est-à-dire qu'il ne reste plus aucune case vide.
-        :return: Un booléen indiquant si la solution actuelle est complète.
-        :rtype: bool
-        """
-        raise NotImplementedError()
+        if len(self.grid.get_empty_positions()) == 0 :
+            return True
+        else :
+            return False
+
 
     def branch(self):
         """À COMPLÉTER
