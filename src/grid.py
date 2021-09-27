@@ -2,7 +2,6 @@
 
 from os import error
 
-
 class SudokuGrid:
 
     grid = [[0] * 9 for i in range(9)]
@@ -14,7 +13,6 @@ class SudokuGrid:
                     self.grid[i][j] = int(initial_values_str[i*9+j])
         except ValueError:
             print("Erreur : Le string d'entrée ne peut pas être interprété cmme une grille de Sudoku.")
-
 
     @staticmethod
     def from_file(filename, line):
@@ -59,7 +57,6 @@ class SudokuGrid:
                 print(self.grid[i][j])
         return res
         
-
     def get_empty_positions(self):
         res = []
         for i in range(len(self.grid)):
