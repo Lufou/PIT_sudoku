@@ -5,15 +5,13 @@ from os import error
 
 class SudokuGrid:
 
-    grid = [[0]*9]*9
+    grid = [[0] * 9 for i in range(9)]
 
     def __init__(self, initial_values_str):
         try:
-            count = 1
             for i in range(0,9):
                 for j in range(0,9):
-                    self.grid[i][j] = int(initial_values_str[count-1])
-                    count += 1
+                    self.grid[i][j] = int(initial_values_str[i*9+j])
         except ValueError:
             print("Erreur : Le string d'entrée ne peut pas être interprété cmme une grille de Sudoku.")
 
@@ -90,5 +88,3 @@ class SudokuGrid:
             for j in range(len(self.grid[0])):
                 new_instance.grid[i][j] = self.grid[i][j]
         return new_instance
-        
-       
