@@ -8,9 +8,7 @@ class SudokuSolver:
 
     def __init__(self, sudoku_grid):
         self.sudoku_grid = sudoku_grid
-        print(self.sudoku_grid)
         self.reduce_all_domains()
-        print(self.possibles_val)
 
     def reduce_all_domains(self):
         for x in self.sudoku_grid.get_empty_positions():
@@ -20,7 +18,6 @@ class SudokuSolver:
                 if not self.sudoku_grid.get_row(x[0]).__contains__(i) and not self.sudoku_grid.get_col(x[1]).__contains__(i) and not self.sudoku_grid.get_region(x[0]//3, x[1]//3).__contains__(i):
                     self.possibles_val[(x[0], x[1])].append(i)
                     
-
     def reduce_domains(self, last_i, last_j, last_v):
         """À COMPLÉTER
         Cette méthode devrait être appelée à chaque mise à jour de la grille,
@@ -33,17 +30,18 @@ class SudokuSolver:
         :type last_j: int
         :type last_v: int
         """
-        raise NotImplementedError()
+        for i in range(9) :
+            if i != last_i :
+                self.possibles_val[(i, last_j)] = self.possibles_val[(i,last_j)].remove(last_v)
+        for j in range(9) :
+            if j != last_j :
+                self.possibles_val[(last_i, j)] = self.possibles_val[(last_i,j)].remove(last_v)
+        for ri in range()         
+            if ri != last_i and rj != last_j :
+                self.possibles_val[(i, last_j)] = self.possibles_val[(i,last_j)].remove(last_v)
+        
 
     def commit_one_var(self):
-        """À COMPLÉTER
-        Cette méthode cherche une case pour laquelle il n'y a plus qu'une seule possibilité.
-        Si elle en trouve une, elle écrit cette unique valeur possible dans la grille
-        et renvoie la position de la case et la valeur inscrite.
-        :return: Le numéro de ligne, de colonne et la valeur inscrite dans la case
-        ou ``None`` si aucune case n'a pu être remplie.
-        :rtype: tuple of int or None
-        """
         res = [] 
         empty = []
         empty.extend(self.sudoku_grid.get_empty_positions()) #récupère les positions des cases vides et les stocke dans la liste "empty"
