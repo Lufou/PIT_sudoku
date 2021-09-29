@@ -64,17 +64,20 @@ class SudokuSolver:
         else :
             row.extend(self.grid.get_row(empty[0][0]))#récupère les lignes de la première case vide fournie par get_empty_positions()
             col.extend(self.grid.get_col(empty[0][1]))#récupère les colonnes de la première case vide fournie par get_empty_positions()
-            print(row, "|",col)
+            reg.extend(self.grid.get_region(empty[0][0]//3,empty[0][1]//3))
+            print(row, "|",col, "|", reg)
             res.append(empty[0][0]) 
             res.append(empty[0][1]) 
             c1 = sum(row)
             c2 = sum(col)
             c3 = sum(reg)
-            if c1 >= 36 : #36 est la somme minimale d'une ligne/colonne/région pour laquelle on ait qu'une seule possibilité de valeur
+             #36 est la somme minimale d'une ligne/colonne/région pour laquelle on ait qu'une seule possibilité de valeur
+            if row.count(0) == 1 :
                 res.append(45 - c1)
-            elif c2 >= 36 :
+            elif col.count(0) == 1 :
                 res.append(45 - c2)
-            elif c3 >= 36 :
+
+            elif reg.count(0) == 1 :
                 res.append(45 - c3)
             else :
                 res.clear()
