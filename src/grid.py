@@ -50,11 +50,9 @@ class SudokuGrid:
 
     def get_region(self, reg_row, reg_col):
         res = []
-        print(self.grid)
         for i in range(reg_row*3,reg_row*3+3):
             for j in range(reg_col*3,reg_col*3+3): 
                 res.append(self.grid[i][j])
-                print(self.grid[i][j])
         return res
         
     def get_empty_positions(self):

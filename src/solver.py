@@ -52,16 +52,34 @@ class SudokuSolver:
         ou ``None`` si aucune case n'a pu être remplie.
         :rtype: tuple of int or None
         """
+        res = [] 
         empty = []
-        empty.extend(self.grid.get_empty_positions(self)) #récupère les positions des cases vides et les stocke dans la liste "empty"
+        empty.extend(self.grid.get_empty_positions()) #récupère les positions des cases vides et les stocke dans la liste "empty"
+        #les 3 listes suivantes sont destinées à contenir la colone, ligne et région qui possède la case vide
         row = []
         col = []
         reg = []
-        for k in range(len(empty)): #parcours la liste "empty"
-            row.extend(self.grid.get_row(empty[k][1]))#récupère les lignes de chaque case vide
-            col.extend(self.grid.get_col(empty[k][0]))#récupère les colonnes de chaque case vide
-            reg.extend(self.grid.get_region(empty[k][0]//3,empty[k][1]//3))#récupère la région de chaque case vide(détermine dans quel tiers du sudoku se trouve la case grâce à le quotient de la division euclidienne de 3 => 0,1 ou2)
-        raise NotImplementedError()
+        if len(empty) == 0 : #si il n'y a plus de cases vides
+            res.append("None")
+        else :
+            row.extend(self.grid.get_row(empty[0][0]))#récupère les lignes de la première case vide fournie par get_empty_positions()
+            col.extend(self.grid.get_col(empty[0][1]))#récupère les colonnes de la première case vide fournie par get_empty_positions()
+            print(row, "|",col)
+            res.append(empty[0][0]) 
+            res.append(empty[0][1]) 
+            c1 = sum(row)
+            c2 = sum(col)
+            c3 = sum(reg)
+            if c1 >= 36 : #36 est la somme minimale d'une ligne/colonne/région pour laquelle on ait qu'une seule possibilité de valeur
+                res.append(45 - c1)
+            elif c2 >= 36 :
+                res.append(45 - c2)
+            elif c3 >= 36 :
+                res.append(45 - c3)
+            else :
+                res.clear()
+                res.append("None")
+        return res     
 
     def solve_step(self):
         """À COMPLÉTER
