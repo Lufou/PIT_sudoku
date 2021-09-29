@@ -3,12 +3,14 @@ from grid import SudokuGrid
 
 class SudokuSolver:
     
-    sudoku_grid = SudokuGrid()
+    sudoku_grid = [] #[[0] * 9 for i in range(9)] #SudokuGrid()
     possibles_val = {}
 
     def __init__(self, sudoku_grid):
         self.sudoku_grid = sudoku_grid
-        print(self.sudoku_grid)
+        for i in range(9) :
+            print(self.sudoku_grid.get_row(i))
+        
         #self.reduce_all_domains()
         self.reduce_all_domains()
         
@@ -32,10 +34,10 @@ class SudokuSolver:
             # ligne
             # colonne
             # region
-
+            """
             for i in range(10):
                 if not self.sudoku_grid.get_row(x[0]).contains(i) and not self.sudoku_grid.get_col(x[1]).contains(i) and not self.sudoku_grid.
-           
+           """
         
 
     def reduce_domains(self, last_i, last_j, last_v):
@@ -50,17 +52,18 @@ class SudokuSolver:
         :type last_j: int
         :type last_v: int
         """
-        raise NotImplementedError()
+        for i in range(9) :
+            if i != last_i :
+                self.possibles_val[(i, last_j)] = self.possibles_val[(i,last_j)].remove(last_v)
+        for j in range(9) :
+            if j != last_j :
+                self.possibles_val[(last_i, j)] = self.possibles_val[(last_i,j)].remove(last_v)
+        for ri in range()         
+            if ri != last_i and rj != last_j :
+                self.possibles_val[(i, last_j)] = self.possibles_val[(i,last_j)].remove(last_v)
+        
 
     def commit_one_var(self):
-        """À COMPLÉTER
-        Cette méthode cherche une case pour laquelle il n'y a plus qu'une seule possibilité.
-        Si elle en trouve une, elle écrit cette unique valeur possible dans la grille
-        et renvoie la position de la case et la valeur inscrite.
-        :return: Le numéro de ligne, de colonne et la valeur inscrite dans la case
-        ou ``None`` si aucune case n'a pu être remplie.
-        :rtype: tuple of int or None
-        """
         res = [] 
         empty = []
         empty.extend(self.sudoku_grid.get_empty_positions()) #récupère les positions des cases vides et les stocke dans la liste "empty"
