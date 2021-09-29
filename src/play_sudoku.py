@@ -24,4 +24,4 @@ while len(instance.get_empty_positions())!=0:
             tuple = tuple(sep)
             valeur = int(input("Valeur à écrire : ")) #saisie utilisateur de la valeur à écrire
             while position[0]>=0 and position[0]<9 and position[1]>=0 and position[1]<9 and valeur>=0 and valeur<9: #verification de la validité de la saisie
-            instance.write() #inscription dans la grille de la valeur donnée à la position donnée
+                instance.write(position[0],position[1],valeur) #inscription dans la grille de la valeur donnée à la position donnée
