@@ -36,8 +36,8 @@ class SudokuSolver:
         for j in range(9) :
             if j != last_j :
                 self.possibles_val[(last_i, j)] = self.possibles_val[(last_i,j)].remove(last_v)
-        for ri in range()         
-            if ri != last_i and rj != last_j :
+        for ri in range(9):
+            if ri != last_i and ri != last_j :
                 self.possibles_val[(i, last_j)] = self.possibles_val[(i,last_j)].remove(last_v)
         
 
