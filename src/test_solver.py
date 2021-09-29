@@ -12,9 +12,9 @@ class TestSudokuSolver(unittest.TestCase):
         """self._grid = SudokuGrid("349287501000000700000509002" \
                 + "200095007001000400800720005" \
                 + "100402000008000000000000376")"""
-        self._grid = SudokuGrid("349287561582641793617539842" \
-            + "234195687751863429896724135" \
-            + "163472958978356214425918076")
+        self._grid = SudokuGrid("349000000000000700000509002" \
+            + "200095007001000400800720005" \
+            + "100402000008000000000000376")
         self._solver = SudokuSolver(self._grid)
     """
     def test_00_is_valid(self):
@@ -41,9 +41,10 @@ class TestSudokuSolver(unittest.TestCase):
                 [1, 6, 3, 4, 7, 2, 9, 5, 8],
                 [9, 7, 8, 3, 5, 6, 2, 1, 4])):
             self.assertEqual(list(sol.get_row(i)), row)
-    """
+   """
     def test(self):    
-        print(self._solver.commit_one_var())
+        #print(self._solver.commit_one_var())
+        print(" ")
 
 
 if __name__ == "__main__":

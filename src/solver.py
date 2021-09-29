@@ -3,40 +3,23 @@ from grid import SudokuGrid
 
 class SudokuSolver:
     
-    sudoku_grid = SudokuGrid()
+    sudoku_grid = ""
     possibles_val = {}
 
     def __init__(self, sudoku_grid):
         self.sudoku_grid = sudoku_grid
         print(self.sudoku_grid)
-        #self.reduce_all_domains()
         self.reduce_all_domains()
-        
-        """À COMPLÉTER
-        Ce constructeur initialise une nouvelle instance de solver à partir d'une grille initiale.
-        Il construit les ensembles de valeurs possibles pour chaque case vide de la grille,
-        en respectant les contraintes définissant un Sudoku valide.
-        Ces contraintes seront appliquées en appelant la méthode ``reduce_all_domains``.
-        :param grid: Une grille de Sudoku
-        :type grid: SudokuGrid
-        """
-        #raise NotImplementedError()
+        print(self.possibles_val)
 
     def reduce_all_domains(self):
-        """À COMPLÉTER
-        Cette méthode devrait être appelée à l'initialisation
-        et élimine toutes les valeurs impossibles pour chaque case vide.
-        *Indication: Vous pouvez utiliser les fonction ``get_row``, ``get_col`` et ``get_region`` de la grille*
-        """
         for x in self.sudoku_grid.get_empty_positions():
-            # ligne
-            # colonne
-            # region
-
+            self.possibles_val[(x[0], x[1])] = []
+            print((x[0],x[1]))
             for i in range(10):
-                if not self.sudoku_grid.get_row(x[0]).contains(i) and not self.sudoku_grid.get_col(x[1]).contains(i) and not self.sudoku_grid.
-           
-        
+                if not self.sudoku_grid.get_row(x[0]).__contains__(i) and not self.sudoku_grid.get_col(x[1]).__contains__(i) and not self.sudoku_grid.get_region(x[0]//3, x[1]//3).__contains__(i):
+                    self.possibles_val[(x[0], x[1])].append(i)
+                    
 
     def reduce_domains(self, last_i, last_j, last_v):
         """À COMPLÉTER
