@@ -1,4 +1,6 @@
 import sys
+from grid import SudokuGrid
+
 instance = ""
 if len(sys.argv)>1: # si il y a bien deux arguments
     inputfile = sys.argv[1]

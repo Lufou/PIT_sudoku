@@ -1,13 +1,16 @@
 #-*-coding: utf8-*-
+from grid import SudokuGrid
 
 class SudokuSolver:
     
-    grid = [[0] * 9 for i in range(9)]
+    sudoku_grid = SudokuGrid()
+    possibles_val = {}
 
-    def __init__(self, grid):
-        self.grid = grid
-        print(self.grid)
+    def __init__(self, sudoku_grid):
+        self.sudoku_grid = sudoku_grid
+        print(self.sudoku_grid)
         #self.reduce_all_domains()
+        self.reduce_all_domains()
         
         """À COMPLÉTER
         Ce constructeur initialise une nouvelle instance de solver à partir d'une grille initiale.
@@ -25,9 +28,15 @@ class SudokuSolver:
         et élimine toutes les valeurs impossibles pour chaque case vide.
         *Indication: Vous pouvez utiliser les fonction ``get_row``, ``get_col`` et ``get_region`` de la grille*
         """
+        for x in self.sudoku_grid.get_empty_positions():
+            # ligne
+            # colonne
+            # region
 
-
-        raise NotImplementedError()
+            for i in range(10):
+                if not self.sudoku_grid.get_row(x[0]).contains(i) and not self.sudoku_grid.get_col(x[1]).contains(i) and not self.sudoku_grid.
+           
+        
 
     def reduce_domains(self, last_i, last_j, last_v):
         """À COMPLÉTER
@@ -54,7 +63,7 @@ class SudokuSolver:
         """
         res = [] 
         empty = []
-        empty.extend(self.grid.get_empty_positions()) #récupère les positions des cases vides et les stocke dans la liste "empty"
+        empty.extend(self.sudoku_grid.get_empty_positions()) #récupère les positions des cases vides et les stocke dans la liste "empty"
         #les 3 listes suivantes sont destinées à contenir la colone, ligne et région qui possède la case vide
         row = []
         col = []
@@ -62,9 +71,9 @@ class SudokuSolver:
         if len(empty) == 0 : #si il n'y a plus de cases vides
             res.append("None")
         else :
-            row.extend(self.grid.get_row(empty[0][0]))#récupère les lignes de la première case vide fournie par get_empty_positions()
-            col.extend(self.grid.get_col(empty[0][1]))#récupère les colonnes de la première case vide fournie par get_empty_positions()
-            reg.extend(self.grid.get_region(empty[0][0]//3,empty[0][1]//3))
+            row.extend(self.sudoku_grid.get_row(empty[0][0]))#récupère les lignes de la première case vide fournie par get_empty_positions()
+            col.extend(self.sudoku_grid.get_col(empty[0][1]))#récupère les colonnes de la première case vide fournie par get_empty_positions()
+            reg.extend(self.sudoku_grid.get_region(empty[0][0]//3,empty[0][1]//3))
             print(row, "|",col, "|", reg)
             res.append(empty[0][0]) 
             res.append(empty[0][1]) 
@@ -108,7 +117,7 @@ class SudokuSolver:
         raise NotImplementedError()
 
     def is_solved(self):
-        if len(self.grid.get_empty_positions()) == 0 :
+        if len(self.sudoku_grid.get_empty_positions()) == 0 :
             return True
         else :
             return False
