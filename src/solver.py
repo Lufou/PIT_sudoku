@@ -1,13 +1,16 @@
 #-*-coding: utf8-*-
+from grid import SudokuGrid
 
 class SudokuSolver:
     
     grid = [[0] * 9 for i in range(9)]
+    possibles_val = {}
 
     def __init__(self, grid):
         self.grid = grid
         print(self.grid)
         #self.reduce_all_domains()
+        self.reduce_all_domains()
         
         """À COMPLÉTER
         Ce constructeur initialise une nouvelle instance de solver à partir d'une grille initiale.
@@ -25,9 +28,14 @@ class SudokuSolver:
         et élimine toutes les valeurs impossibles pour chaque case vide.
         *Indication: Vous pouvez utiliser les fonction ``get_row``, ``get_col`` et ``get_region`` de la grille*
         """
+        for x in self.grid.get_empty_positions():
+            # ligne
+            for i in range(10):
+                if not self.grid.get_row(x[0])
+            # colonne
+            # region
 
-
-        raise NotImplementedError()
+        
 
     def reduce_domains(self, last_i, last_j, last_v):
         """À COMPLÉTER
