@@ -31,7 +31,7 @@ while len(instance.get_empty_positions())!=0:
         sep = position.split(",")
 
     valeur = input("Valeur à écrire (de 1 à 9) : ")
-    while not valeur.isnumeric() or int(valeur) <= 0 or int(valeur) > 9 or instance.get_row(int(sep[0])).__contains__(int(valeur)) or instance.get_col(int(sep[1])).__contains__(int(valeur)) or instance.get_region(int(sep[0])//3,int(sep[1])//3).__contains__(int(valeur)):
+    while not valeur.isnumeric() or int(valeur) <= 0 or int(valeur) > 9 or instance.get_row(int(sep[0])).__contains__(int(valeur)) or instance.get_col(int(sep[1])).__contains__(int(valeur)) or instance.get_region(int(sep[0]),int(sep[1])).__contains__(int(valeur)):
         valeur = input("Vous n'êtes pas autorisé à mettre cette valeur, entrez une nouvelle valeur (de 1 à 9) : ")
 
     instance.write(int(sep[0]),int(sep[1]),int(valeur))

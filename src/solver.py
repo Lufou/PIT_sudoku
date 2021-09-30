@@ -15,7 +15,7 @@ class SudokuSolver:
             self.possibles_val[(x[0], x[1])] = []
             print((x[0],x[1]))
             for i in range(10):
-                if not self.sudoku_grid.get_row(x[0]).__contains__(i) and not self.sudoku_grid.get_col(x[1]).__contains__(i) and not self.sudoku_grid.get_region(x[0]//3, x[1]//3).__contains__(i):
+                if not self.sudoku_grid.get_row(x[0]).__contains__(i) and not self.sudoku_grid.get_col(x[1]).__contains__(i) and not self.sudoku_grid.get_region(x[0], x[1]).__contains__(i):
                     self.possibles_val[(x[0], x[1])].append(i)
                     
     def reduce_domains(self, last_i, last_j, last_v):
@@ -30,15 +30,6 @@ class SudokuSolver:
         :type last_j: int
         :type last_v: int
         """
-        for i in range(9) :
-            if i != last_i :
-                self.possibles_val[(i, last_j)] = self.possibles_val[(i,last_j)].remove(last_v)
-        for j in range(9) :
-            if j != last_j :
-                self.possibles_val[(last_i, j)] = self.possibles_val[(last_i,j)].remove(last_v)
-        for ri in range(9):
-            if ri != last_i and ri != last_j :
-                self.possibles_val[(i, last_j)] = self.possibles_val[(i,last_j)].remove(last_v)
         
 
     def commit_one_var(self):
