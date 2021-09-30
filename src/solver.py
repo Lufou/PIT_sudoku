@@ -42,37 +42,15 @@ class SudokuSolver:
         
 
     def commit_one_var(self):
-        res = [] 
         empty = []
-        empty.extend(self.sudoku_grid.get_empty_positions()) #récupère les positions des cases vides et les stocke dans la liste "empty"
-        #les 3 listes suivantes sont destinées à contenir la colone, ligne et région qui possède la case vide
-        row = []
-        col = []
-        reg = []
-        if len(empty) == 0 : #si il n'y a plus de cases vides
-            res.append("None")
-        else :
-            row.extend(self.sudoku_grid.get_row(empty[0][0]))#récupère les lignes de la première case vide fournie par get_empty_positions()
-            col.extend(self.sudoku_grid.get_col(empty[0][1]))#récupère les colonnes de la première case vide fournie par get_empty_positions()
-            reg.extend(self.sudoku_grid.get_region(empty[0][0]//3,empty[0][1]//3))
-            print(row, "|",col, "|", reg)
-            res.append(empty[0][0]) 
-            res.append(empty[0][1]) 
-            c1 = sum(row)
-            c2 = sum(col)
-            c3 = sum(reg)
-             #36 est la somme minimale d'une ligne/colonne/région pour laquelle on ait qu'une seule possibilité de valeur
-            if row.count(0) == 1 :
-                res.append(45 - c1)
-            elif col.count(0) == 1 :
-                res.append(45 - c2)
+        empty.extend(self.sudoku_grid.get_empty_positions())
 
-            elif reg.count(0) == 1 :
-                res.append(45 - c3)
-            else :
-                res.clear()
-                res.append("None")
-        return res     
+        for case_vide in empty:
+            if len(self.possibles_val[case_vide]) != 1: continue
+            self.sudoku_grid.write(self.possibles_val[case_vide])
+            return (case_vide[0],case_vide[1],self.possibles_val[case_vide])
+
+        return None
 
     def solve_step(self):
         """À COMPLÉTER
