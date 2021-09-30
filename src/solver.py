@@ -60,20 +60,16 @@ class SudokuSolver:
                 break
 
     def is_valid(self):
-        """À COMPLÉTER
-        Cette méthode vérifie qu'il reste des possibilités pour chaque case vide
-        dans la solution partielle actuelle.
-        :return: Un booléen indiquant si la solution partielle actuelle peut encore mener à une solution valide
-        :rtype: bool
-        """
-        raise NotImplementedError()
+        for (i,j) in self.sudoku_grid.get_empty_positions():
+            if len(self.possibles_val[(i,j)]) > 0:
+                return True
+        return False
 
     def is_solved(self):
         if len(self.sudoku_grid.get_empty_positions()) == 0 :
             return True
         else :
             return False
-
 
     def branch(self):
         """À COMPLÉTER
