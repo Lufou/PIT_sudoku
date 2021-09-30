@@ -19,18 +19,25 @@ class SudokuSolver:
                     self.possibles_val[(x[0], x[1])].append(i)
                     
     def reduce_domains(self, last_i, last_j, last_v):
-        """À COMPLÉTER
-        Cette méthode devrait être appelée à chaque mise à jour de la grille,
-        et élimine la dernière valeur affectée à une case
-        pour toutes les autres cases concernées par cette mise à jour (même ligne, même colonne ou même région).
-        :param last_i: Numéro de ligne de la dernière case modifiée, entre 0 et 8
-        :param last_j: Numéro de colonne de la dernière case modifiée, entre 0 et 8
-        :param last_v: Valeur affecté à la dernière case modifiée, entre 1 et 9
-        :type last_i: int
-        :type last_j: int
-        :type last_v: int
-        """
-        
+        # same line
+        for j in range(len(self.sudoku_grid.grid[0])):
+            if j == last_j: continue
+            case = (last_i,j)
+            if self.possibles_val[case].__contains__(last_v):
+                self.possibles_val[case].remove(last_v)
+        # same col
+        for i in range(len(self.sudoku_grid.grid)):
+            if i == last_i: continue
+            case = (i,last_j)
+            if self.possibles_val[case].__contains__(last_v):
+                self.possibles_val[case].remove(last_v)
+        # same region
+        for i in range((last_i//3)*3,(last_i//3)*3+3):
+            for j in range((last_j//3)*3,(last_j//3)*3+3):
+                case = (i,j)
+                if case == (last_i, last_j): continue
+                if self.possibles_val[case].__contains__(last_v):
+                    self.possibles_val[case].remove(last_v)
 
     def commit_one_var(self):
         empty = []

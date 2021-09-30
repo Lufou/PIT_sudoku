@@ -49,8 +49,6 @@ class SudokuGrid:
         return res
 
     def get_region(self, reg_row, reg_col):
-        reg_row = reg_row//3
-        reg_col = reg_col//3
         res = []
         for i in range(reg_row*3,reg_row*3+3):
             for j in range(reg_col*3,reg_col*3+3): 
