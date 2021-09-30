@@ -43,26 +43,21 @@ class SudokuSolver:
         empty = []
         empty.extend(self.sudoku_grid.get_empty_positions())
 
-        for case_vide in empty:
-            if len(self.possibles_val[case_vide]) != 1: continue
-            self.sudoku_grid.write(self.possibles_val[case_vide])
-            return (case_vide[0],case_vide[1],self.possibles_val[case_vide])
+        for (i,j) in empty:
+            if len(self.possibles_val[(i,j)]) != 1: continue
+            self.sudoku_grid.write(self.possibles_val[(i,j)])
+            return (i,j,self.possibles_val[(i,j)])
 
         return None
 
     def solve_step(self):
-        """À COMPLÉTER
-        Cette méthode alterne entre l'affectation de case pour lesquelles il n'y a plus qu'une possibilité
-        et l'élimination des nouvelles valeurs impossibles pour les autres cases concernées.
-        Elle répète cette alternance tant qu'il reste des cases à remplir,
-        et correspond à la résolution de Sudokus dits «simple».
-        *Variante avancée: en plus de vérifier s'il ne reste plus qu'une seule possibilité pour une case,
-        il est aussi possible de vérifier s'il ne reste plus qu'une seule position valide pour une certaine valeur
-        sur chaque ligne, chaque colonne et dans chaque région*
-        """
-        
-
-        raise NotImplementedError()
+        while len(self.sudoku_grid.get_empty_positions()) > 0:
+            res = self.commit_one_var()
+            if res != None:
+                (i, j, v) = res
+                self.reduce_domains(i, j, v)
+            else:
+                break
 
     def is_valid(self):
         """À COMPLÉTER
