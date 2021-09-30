@@ -87,16 +87,12 @@ class SudokuSolver:
         raise NotImplementedError()
 
     def solve(self):
-        """
-        Cette méthode implémente la fonction principale de la programmation par contrainte.
-        Elle cherche d'abord à affiner au mieux la solution partielle actuelle par un appel à ``solve_step``.
-        Si la solution est complète, elle la retourne.
-        Si elle est invalide, elle renvoie ``None`` pour indiquer un cul-de-sac dans la recherche de solution
-        et déclencher un retour vers la précédente solution valide.
-        Sinon, elle crée plusieurs sous-problèmes pour explorer différentes possibilités
-        en appelant récursivement ``solve`` sur ces sous-problèmes.
-        :return: Une solution pour la grille de Sudoku donnée à l'initialisation du solver
-        (ou None si pas de solution)
-        :rtype: SudokuGrid or None
-        """
-        raise NotImplementedError()
+        for solver in self.branch():
+            solver.solve_step()
+            if solver.is_solved():
+                return solver.grid
+            else:
+                s = solver.solve()
+                if s != None:
+                    return s
+        return None
