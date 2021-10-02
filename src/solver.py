@@ -9,13 +9,13 @@ class SudokuSolver:
     def __init__(self, sudoku_grid):
         self.sudoku_grid = sudoku_grid
         self.reduce_all_domains()
+        #self.test()
 
     def reduce_all_domains(self):
         for x in self.sudoku_grid.get_empty_positions():
             self.possibles_val[(x[0], x[1])] = []
-            print((x[0],x[1]))
             for i in range(10):
-                if not self.sudoku_grid.get_row(x[0]).__contains__(i) and not self.sudoku_grid.get_col(x[1]).__contains__(i) and not self.sudoku_grid.get_region(x[0], x[1]).__contains__(i):
+                if not self.sudoku_grid.get_row(x[0]).__contains__(i) and not self.sudoku_grid.get_col(x[1]).__contains__(i) and not self.sudoku_grid.get_region(x[0]//3, x[1]//3).__contains__(i):
                     self.possibles_val[(x[0], x[1])].append(i)
                     
     def reduce_domains(self, last_i, last_j, last_v):
@@ -84,7 +84,24 @@ class SudokuSolver:
         :return: Une liste de sous-problèmes ayant chacun une valeur différente pour la variable choisie
         :rtype: list of SudokuSolver
         """
-        raise NotImplementedError()
+        res = []
+        #parcours val_possibles pour savoir quelle case libre a le moins de valeur possible et choisir astucieusement la variable libre
+        minimum = 9
+        pos = 0
+        for (x,y) in self.possibles_val :
+            if len(self.possibles_val[x,y]) < minimum :
+                minimum = len(self.possibles_val[x,y])
+                for p in range(len(self.sudoku_grid.get_empty_positions())) :
+                    if self.sudoku_grid.get_empty_positions()[p] == (x,y) :
+                        pos = p
+        (i,j)=self.sudoku_grid.get_empty_positions()[pos]
+        for val in self.possibles_val[(i,j)] :
+            newGrid = self.sudoku_grid.copy()
+            newGrid.write(i,j,val)
+            res.append(SudokuSolver(newGrid))
+        return res
+        
+            
 
     def solve(self):
         for solver in self.branch():
@@ -96,3 +113,8 @@ class SudokuSolver:
                 if s != None:
                     return s
         return None
+
+    def test(self) :
+        for i in range(9) :
+            print(self.sudoku_grid.get_row(i))
+        print(self.possibles_val)
