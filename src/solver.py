@@ -94,6 +94,7 @@ class SudokuSolver:
                 for p in range(len(self.sudoku_grid.get_empty_positions())) :
                     if self.sudoku_grid.get_empty_positions()[p] == (x,y) :
                         pos = p
+        #intancie une nouvelle grille de SudokuSolver avec une valeur possible différente 
         (i,j)=self.sudoku_grid.get_empty_positions()[pos]
         for val in self.possibles_val[(i,j)] :
             newGrid = self.sudoku_grid.copy()
