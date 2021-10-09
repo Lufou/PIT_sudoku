@@ -7,17 +7,19 @@ class SudokuGrid:
     grid = [[0] * 9 for i in range(9)]
 
     def __init__(self, initial_values_str):
+        if len(initial_values_str) != 81: raise ValueError
         try:
             for i in range(0,9):
                 for j in range(0,9):
                     self.grid[i][j] = int(initial_values_str[i*9+j])
-        except ValueError:
-            print("Erreur : Le string d'entrée ne peut pas être interprété cmme une grille de Sudoku.")
+        except:
+            print("Erreur : Le string d'entrée ne peut pas être interprété comme une grille de Sudoku.")
+            raise ValueError
 
     @staticmethod
-    def from_file(filename, line):
+    def from_file(filename, line_number):
         f = open(filename, "r")
-        line = f.readline(line)
+        line = f.readlines()[line_number-1].strip("\n")
         f.close()
         return SudokuGrid(line)
 
@@ -25,15 +27,16 @@ class SudokuGrid:
     def from_stdin():
         res = ""
         while not res.isnumeric():
-            input("Entrez la grille de Sudoku : ")
+            res = input("Entrez la grille de Sudoku : ")
         
         return SudokuGrid(res)
 
     def __str__(self):
         res = ""
-        for i in range(len(self.grid)):
-            for j in range(len(self.grid[0])):
+        for i in range(0,9):
+            for j in range(0,9):
                 res += str(self.grid[i][j])
+            res += "\n"
         return res
 
     def get_row(self, i):
@@ -75,8 +78,7 @@ class SudokuGrid:
             self.grid[i][j] = v
 
     def copy(self):
+        current_grid = [[self.grid[i][j] for j in range(9)] for i in range(9)]
         new_instance = self.__new__(self.__class__)
-        for i in range(len(self.grid)):
-            for j in range(len(self.grid[0])):
-                new_instance.grid[i][j] = self.grid[i][j]
+        new_instance.grid = current_grid
         return new_instance

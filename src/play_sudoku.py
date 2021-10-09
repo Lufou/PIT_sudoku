@@ -16,13 +16,7 @@ else:
     instance = SudokuGrid(grille)
 
 while len(instance.get_empty_positions())!=0:
-    for i in range(0,9):
-        print("-------------------")
-        line = "|"
-        for j in range(0,9):
-            line += (str(instance.grid[i][j]) + "|")
-        print(line)
-    print("--------------------")
+    print(instance)
 
     position = input("Position de la valeur à ecrire sous la forme 0,0 : ")
     sep = position.split(",")

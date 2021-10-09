@@ -6,17 +6,13 @@ import random
 from grid import SudokuGrid
 from solver import SudokuSolver
 
-
 class TestSudokuSolver(unittest.TestCase):
     def setUp(self):
-        """self._grid = SudokuGrid("349287501000000700000509002" \
-                + "200095007001000400800720005" \
-                + "100402000008000000000000376")"""
-        self._grid = SudokuGrid("349000000000000700000509002" \
-            + "200095007001000400800720005" \
-            + "100402000008000000000000376")
+        self._grid = SudokuGrid("349287501000000700000509002" \
+                + "200095007001000400800720005"
+                + "100402000008000000000000376")
         self._solver = SudokuSolver(self._grid)
-    """
+
     def test_00_is_valid(self):
         self.assertTrue(self._solver.is_valid())
 
@@ -41,11 +37,6 @@ class TestSudokuSolver(unittest.TestCase):
                 [1, 6, 3, 4, 7, 2, 9, 5, 8],
                 [9, 7, 8, 3, 5, 6, 2, 1, 4])):
             self.assertEqual(list(sol.get_row(i)), row)
-   """
-    def test(self):    
-        #print(self._solver.commit_one_var())
-        print(" ")
-
 
 if __name__ == "__main__":
     unittest.main()
